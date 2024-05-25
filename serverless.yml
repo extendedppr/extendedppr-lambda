@@ -1,0 +1,62 @@
+service: eppr-api
+frameworkVersion: '3'
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: python3.11
+  stage: prod
+  region: eu-west-1
+  environment:
+    STRIP_STAGE_PATH: yes
+    MONGO_USER: ${env:MONGO_USER}
+    MONGO_PASS: ${env:MONGO_PASS}
+    MONGO_HOST: ${env:MONGO_HOST}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - 'logs:CreateLogGroup'
+            - 'logs:CreateLogStream'
+            - 'logs:PutLogEvents'
+            - 'iam:PassRole'
+            - 'secretsmanager:GetSecretValue'
+          Resource: '*'
+
+functions:
+  api:
+    handler: wsgi_handler.handler
+    timeout: 29
+    memorySize: 1024
+    events:
+      - httpApi: '*'
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
+
+
+plugins:
+  - serverless-wsgi
+  - serverless-python-requirements
+  - serverless-offline
+  - serverless-plugin-simulate
+package:
+  patterns:
+    - '!venv/**'
+    - '!aws/**'
+    - '!node_modules/**'
+    - '!.requirements.txt'
+    - '!.env_python*/**'
+    - '.env.*'
+    - '!build/**'
+    - '!test/**'
+    - '!tests/**'
+    - '!resources/**'
+    - '!dist/**'
+
+custom:
+  pythonRequirements:
+    layer: true
+  wsgi:
+    app: src/eppr.app.app
