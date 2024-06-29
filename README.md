@@ -16,6 +16,10 @@ If you want to develop locally, remember to change where the webpage is pointing
 Set the Mongo credentials in the .env file.
 
 ```bash
+sls plugin install -n serverless-wsgi
+sls plugin install -n serverless-plugin-simulate
+sls plugin install -n serverless-offline
+sls plugin install -n serverless-python-requirements
 sls wsgi install
 sls offline --httpPort 3000
 ```

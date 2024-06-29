@@ -5,9 +5,6 @@ from eppr.mongo.utils import (
     aggregate,
     update_match,
 )
-from eppr.utils import (
-    is_default_beds,
-)
 from eppr.mongo.filters import (
     get_bed_filter,
     get_county_filter,

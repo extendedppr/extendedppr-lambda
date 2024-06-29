@@ -9,6 +9,7 @@ from eppr.settings import (
     MONGO_HOST,
     LISTING_PPR_DATA_OPTION,
     MATCHED_WITH_PPR_DATA_OPTION,
+    PPR_DATA_OPTION,
 )
 
 
@@ -71,7 +72,14 @@ def get_price_property(data_option: str) -> str:
 
     :param data_option: The type of data we want to work with, listing or matched ppr
     """
-    return "ppr_price" if data_option == "matchedWithPPR" else "price"
+    if data_option == "PPRPrice":
+        return "ppr_price"
+    elif data_option == "matchedWithPPR":
+        return "ppr_price"
+    elif data_option == "allHistoricalListings":
+        return "price"
+
+    raise ValueError(f'data_option "{data_option}" not recognised')
 
 
 def get_collection_name(data_option: str) -> str:
@@ -80,11 +88,14 @@ def get_collection_name(data_option: str) -> str:
 
     :param data_option: The type of data we want to work with, listing or matched ppr
     """
-    return (
-        MATCHED_WITH_PPR_DATA_OPTION
-        if data_option == "matchedWithPPR"
-        else LISTING_PPR_DATA_OPTION
-    )
+    if data_option == "PPRPrice":
+        return PPR_DATA_OPTION
+    elif data_option == "matchedWithPPR":
+        return MATCHED_WITH_PPR_DATA_OPTION
+    elif data_option == "allHistoricalListings":
+        return LISTING_PPR_DATA_OPTION
+
+    raise ValueError(f'data_option "{data_option}" not recognised')
 
 
 def get_poly(

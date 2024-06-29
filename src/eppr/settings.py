@@ -33,3 +33,4 @@ if not MONGO_USER or not MONGO_PASS or not MONGO_HOST:
 
 MATCHED_WITH_PPR_DATA_OPTION = os.getenv("MATCHED_WITH_PPR_DATA_OPTION", "ppr_data")
 LISTING_PPR_DATA_OPTION = os.getenv("LISTING_PPR_DATA_OPTION", "listing_data")
+PPR_DATA_OPTION = os.getenv("PPR_DATA_OPTION", "ppr_data")
