@@ -29,5 +29,5 @@ sls offline --httpPort 3000
 
 ```bash
 poetry install --verbose --with test
-poetry run coverage run -m pytest
+poetry run pytest
 ```
