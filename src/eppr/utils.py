@@ -48,6 +48,8 @@ def get_basic_params(query_params: dict) -> tuple:
         query_params.get("maxDate"),
         int(query_params.get("minBeds", 0)),
         int(query_params.get("maxBeds", 100)),
+        int(query_params.get("minPrice", 0)),
+        int(query_params.get("maxPrice", 100000000)),
         float(query_params.get("minLat", 0)),
         float(query_params.get("maxLat", 0)),
         float(query_params.get("minLng", 0)),

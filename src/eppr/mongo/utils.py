@@ -10,6 +10,8 @@ from eppr.settings import (
     LISTING_PPR_DATA_OPTION,
     MATCHED_WITH_PPR_DATA_OPTION,
     PPR_DATA_OPTION,
+    SHARE_DATA_OPTION,
+    RENTAL_DATA_OPTION,
 )
 
 
@@ -39,22 +41,8 @@ def get_client() -> MongoClient:
     return _get_client()
 
 
-def get_single_listing(listing_id: str) -> dict | None:
-    """
-    Get a single listing object. Does not include matching ppr data
-    """
-    return getattr(get_client().eppr, LISTING_PPR_DATA_OPTION).find_one(
-        {"_id": ObjectId(listing_id)}
-    )
-
-
-def get_single_ppr(ppr_id: str) -> dict | None:
-    """
-    Get a single ppr object, includes matched data if available.
-    """
-    return getattr(get_client().eppr, MATCHED_WITH_PPR_DATA_OPTION).find_one(
-        {"_id": ObjectId(ppr_id)}
-    )
+def get_single_detail(collection: str, obj_id: str) -> dict | None:
+    return getattr(get_client().eppr, collection).find_one({"_id": ObjectId(obj_id)})
 
 
 def get_time_property(data_option: str) -> str:
@@ -78,6 +66,10 @@ def get_price_property(data_option: str) -> str:
         return "ppr_price"
     elif data_option == "allHistoricalListings":
         return "price"
+    elif data_option == "rentals":
+        return "price"
+    elif data_option == "shares":
+        return "price"
 
     raise ValueError(f'data_option "{data_option}" not recognised')
 
@@ -94,6 +86,10 @@ def get_collection_name(data_option: str) -> str:
         return MATCHED_WITH_PPR_DATA_OPTION
     elif data_option == "allHistoricalListings":
         return LISTING_PPR_DATA_OPTION
+    elif data_option == "rentals":
+        return RENTAL_DATA_OPTION
+    elif data_option == "shares":
+        return SHARE_DATA_OPTION
 
     raise ValueError(f'data_option "{data_option}" not recognised')
 

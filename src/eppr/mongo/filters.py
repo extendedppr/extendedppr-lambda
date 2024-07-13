@@ -10,7 +10,12 @@ def get_bed_filter(min_beds: int, max_beds: int) -> dict | None:
         return {"beds": {"$gte": min_beds, "$lte": max_beds}}
 
 
-def get_county_filter(counties: str) -> dict | None:
+def get_price_filter(price_key: str, min_price: int, max_price: int) -> dict | None:
+    # TODO: get price string
+    return {"price": {"$gte": min_price, "$lte": max_price}}
+
+
+def get_county_filter(counties) -> dict | None:
     """
 
     :param counties:
@@ -21,7 +26,7 @@ def get_county_filter(counties: str) -> dict | None:
         return {"county": {"$in": counties}}
 
 
-def get_property_type_filter(property_types: str) -> dict | None:
+def get_property_type_filter(property_types) -> dict | None:
     """
 
     :param property_types:
@@ -32,7 +37,7 @@ def get_property_type_filter(property_types: str) -> dict | None:
         return {"property_type": {"$in": property_types}}
 
 
-def get_agent_filter(agents: str) -> dict | None:
+def get_agent_filter(agents) -> dict | None:
     """
 
     :param agents:

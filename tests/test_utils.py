@@ -29,7 +29,7 @@ class TestUtils(TestCase):
             get_basic_params(
                 {"minLat": 0, "maxLat": 0.1, "minLng": 0.2, "maxLng": 0.3}
             ),
-            (None, None, None, None, None, 0, 100, 0.0, 0.1, 0.2, 0.3),
+            (None, None, None, None, None, 0, 100, 0, 100000000, 0.0, 0.1, 0.2, 0.3),
         )
 
         self.assertEqual(
@@ -54,6 +54,8 @@ class TestUtils(TestCase):
                 "maxdate",
                 0,
                 100,
+                0,
+                100000000,
                 0.0,
                 0.1,
                 0.2,
@@ -117,11 +119,13 @@ class TestUtils(TestCase):
         self.assertEqual(
             get_collection_name("matchedWithPPR"), MATCHED_WITH_PPR_DATA_OPTION
         )
-        self.assertEqual(get_collection_name("anythingelse"), LISTING_PPR_DATA_OPTION)
+        with self.assertRaises(ValueError):
+            get_collection_name("anythingelse")
 
     def test_get_price_property(self):
         self.assertEqual(get_price_property("matchedWithPPR"), "ppr_price")
-        self.assertEqual(get_price_property("anythingelse"), "price")
+        with self.assertRaises(ValueError):
+            get_price_property("anythingelse")
 
     def test_get_time_property(self):
         self.assertEqual(get_time_property("matchedWithPPR"), "ppr_sale_date")

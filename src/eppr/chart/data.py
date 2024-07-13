@@ -6,6 +6,7 @@ from eppr.mongo.utils import (
     update_match,
 )
 from eppr.mongo.filters import (
+    get_price_filter,
     get_bed_filter,
     get_county_filter,
     get_property_type_filter,
@@ -22,6 +23,8 @@ def get_undervalued_by_eircode(
     max_year: int,
     min_beds: int,
     max_beds: int,
+    min_price: int,
+    max_price: int,
     data_option: str,
 ) -> list:
     """
@@ -33,6 +36,8 @@ def get_undervalued_by_eircode(
     :param max_year:
     :param min_beds:
     :param max_beds:
+    :param min_price:
+    :param max_price:
     :param data_option:
     """
 
@@ -53,6 +58,7 @@ def get_undervalued_by_eircode(
     ]
 
     for filter_obj in [
+        get_price_filter(get_price_property(data_option), min_price, max_price),
         get_county_filter(counties),
         get_property_type_filter(property_types),
         get_agent_filter(agents),
@@ -86,6 +92,8 @@ def get_avg_prices_by_eircode(
     max_year: int,
     min_beds: int,
     max_beds: int,
+    min_price: int,
+    max_price: int,
     data_option: str,
 ) -> list:
     """
@@ -97,6 +105,8 @@ def get_avg_prices_by_eircode(
     :param max_year:
     :param min_beds:
     :param max_beds:
+    :param min_price:
+    :param max_price:
     :param data_option:
     """
 
@@ -112,6 +122,7 @@ def get_avg_prices_by_eircode(
     ]
 
     for filter_obj in [
+        get_price_filter(get_price_property(data_option), min_price, max_price),
         get_county_filter(counties),
         get_property_type_filter(property_types),
         get_agent_filter(agents),
@@ -133,6 +144,8 @@ def get_avg_prices(
     max_year: int,
     min_beds: int,
     max_beds: int,
+    min_price: int,
+    max_price: int,
     data_option: str,
 ) -> list:
     """
@@ -144,6 +157,8 @@ def get_avg_prices(
     :param max_year:
     :param min_beds:
     :param max_beds:
+    :param min_price:
+    :param max_price:
     :param data_option:
     """
 
@@ -179,6 +194,7 @@ def get_avg_prices(
     ]
 
     for filter_obj in [
+        get_price_filter(get_price_property(data_option), min_price, max_price),
         get_county_filter(counties),
         get_property_type_filter(property_types),
         get_agent_filter(agents),
