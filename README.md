@@ -31,3 +31,9 @@ sls offline --httpPort 3000
 poetry install --verbose --with test
 poetry run pytest
 ```
+
+# Scraping data
+
+```bash
+poetry run scrape
+```

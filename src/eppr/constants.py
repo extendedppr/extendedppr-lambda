@@ -12,3 +12,11 @@ RESPONSE_HEADERS = {
 }
 
 EMPTY_GEOJSON = {"type": "FeatureCollection", "features": []}
+
+DATA_OPTIONS = {
+    "PPRPrice",
+    "matchedWithPPR",
+    "allHistoricalListings",
+    "shares",
+    "rentals",
+}

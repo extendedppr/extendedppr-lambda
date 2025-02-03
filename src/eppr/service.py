@@ -17,6 +17,7 @@ from eppr.mongo.utils import (
 
 from eppr.map.routing import route as map_route
 from eppr.chart.routing import route as chart_route
+from eppr.data.routing import route as data_route
 
 
 DETAIL_PATTERN = re.compile(r"api/(rental|share|listing|property)/detail")
@@ -54,10 +55,11 @@ def handler(event: dict, context):
             }
         return construct_data_response({k: convert_to_json(v) for k, v in data.items()})
 
-    if event["path"].startswith("api/map/"):
+    if event["path"].startswith("api/map"):
         return map_route(event, query_params)
-
-    if event["path"].startswith("api/chart/"):
+    elif event["path"].startswith("api/chart"):
         return chart_route(event, query_params)
-
-    return construct_data_response({"message": "Path not found"}, status=404)
+    elif event["path"].startswith("api/data"):
+        return data_route(event, query_params)
+    else:
+        return construct_data_response({"message": "Path not found"}, status=404)
