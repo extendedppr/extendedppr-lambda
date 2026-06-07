@@ -19,11 +19,10 @@ from eppr.mongo.utils import (
     get_poly,
     update_match,
 )
-from eppr.settings import MATCHED_WITH_PPR_DATA_OPTION, LISTING_PPR_DATA_OPTION
+from eppr.settings import MATCHED_WITH_PPR_DATA_OPTION
 
 
 class TestUtils(TestCase):
-
     def test_get_basic_params(self):
         self.assertEqual(
             get_basic_params(

@@ -32,7 +32,6 @@ def get_data(
     marker: str | None,
     page_size: int,
 ):
-
     if marker:
         object_id_min = ObjectId(marker)
     else:

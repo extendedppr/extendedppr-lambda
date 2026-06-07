@@ -1,7 +1,6 @@
-import os
 import datetime
 
-from unittest import TestCase, skip
+from unittest import TestCase
 
 from eppr.mongo.filters import (
     get_county_filter,
@@ -12,7 +11,6 @@ from eppr.mongo.filters import (
 
 
 class TestFilters(TestCase):
-
     def test_get_county_filter(self):
         self.assertEqual(get_county_filter(None), None)
         self.assertEqual(get_county_filter(""), None)

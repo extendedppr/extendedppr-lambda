@@ -34,7 +34,7 @@ def route(event, query_params):
     page_size = int(query_params.get("pageSize", 100))
     if page_size > 10000:
         return construct_data_response(
-            {"message": f"pageSize must be less than or equal to 10000"}, 400
+            {"message": "pageSize must be less than or equal to 10000"}, 400
         )
 
     marker = query_params.get("marker")
